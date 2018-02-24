@@ -10,6 +10,8 @@ import { StartComponent } from './pages/start/start.component';
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../environments/environment';
 import { AuthService } from './services/auth.service';
+import { AngularFireAuthModule} from 'angularfire2/auth';
+import {  AngularFirestoreModule} from 'angularfire2/firestore';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { AuthService } from './services/auth.service';
     BrowserModule,
     NgbModule.forRoot(),
     AppRouterModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

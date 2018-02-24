@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../services/auth.service';
+import {Observable} from 'rxjs/Observable';
+import { User } from '@firebase/auth-types';
 
 @Component({
   selector: 'app-start',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartComponent implements OnInit {
 
-  constructor() { }
+  public authState$: Observable<User | null>;
+
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
+    this.auth.authAnonymous();
+    this.authState$ = this.auth.authState;
   }
 
 }
