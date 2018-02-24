@@ -7,6 +7,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { StreamComponent } from './pages/stream/stream.component';
 import { AppRouterModule } from './router/router.module';
 import { StartComponent } from './pages/start/start.component';
+import {AngularFireModule} from 'angularfire2';
+import {environment} from '../environments/environment';
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { StartComponent } from './pages/start/start.component';
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
-    AppRouterModule
+    AppRouterModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],
   bootstrap: [AppComponent]
