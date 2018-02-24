@@ -1,3 +1,15 @@
-<p>
-  stream works!
-</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <video #video class="video"></video>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button md-raised-button class="btn btn-primary" (click)="startRecording()"> Record </button>
+      <button md-raised-button class="btn btn-primary"(click) ="stopRecording()"> Stop</button>
+      <button md-raised-button class="btn btn-primary" (click)="download()"> Download</button>
+    </div>
+  </div>
+
+</div>
