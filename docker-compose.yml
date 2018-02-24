@@ -1,9 +1,9 @@
 version: '2'
 services:
-  frontend:
+  website:
     build:
       context: .
       dockerfile: Dockerfile
-    image: brune-and-friend/website
+    image: brunelandfriend/website
     ports:
       - '8082:80'

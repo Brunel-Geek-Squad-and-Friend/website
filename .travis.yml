@@ -18,9 +18,9 @@ script:
   - npm run build
   - docker-compose build
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then docker tag $DOCKER_ORG/frontend $DOCKER_ORG/website:latest;
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then docker tag $DOCKER_ORG/website $DOCKER_ORG/website:latest;
       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"; docker push $DOCKER_ORG/website:latest;
     fi
-  - if [ "$TRAVIS_BRANCH" == "develop" ]; then docker tag $DOCKER_ORG/frontend $DOCKER_ORG/website:dev;
+  - if [ "$TRAVIS_BRANCH" == "develop" ]; then docker tag $DOCKER_ORG/website $DOCKER_ORG/website:dev;
       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"; docker push $DOCKER_ORG/website:dev;
     fi
