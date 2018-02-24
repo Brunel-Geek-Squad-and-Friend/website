@@ -1,4 +1,31 @@
 <div class="container">
-  <p>Authenticated anonymously.</p>
-  <p *ngIf="authState$ | async as authState">Your UID is: {{authState.uid}}</p>
+  <div class="alert-warning" *ngIf="error">{{error}}</div>
+  <p *ngIf="authState$ | async as authState; else authenticating">
+    Authenticated anonymously. <br />
+    Your UID is: {{authState.uid}}
+  </p>
+  <p>The Queue is as follows:</p>
+  <ol *ngIf="queue$ | async as queue">
+    <li *ngFor="let quueuee of queue">
+      {{quueuee.name}}
+    </li>
+  </ol>
+  <div class="form-group" *ngIf="showJoin === true">
+    <label for="name">Enter you name:</label>
+    <input [(ngModel)]="displayName" type="text" class="form-control" name="name" id="name" placeholder="Enter your display name">
+    <button type="button" class="btn btn-primary mt-2" (click)="joinQueue()">Join the Queue</button>
+  </div>
 </div>
+<ng-template #authenticating>
+  <div class="sk-cube-grid">
+    <div class="sk-cube sk-cube1"></div>
+    <div class="sk-cube sk-cube2"></div>
+    <div class="sk-cube sk-cube3"></div>
+    <div class="sk-cube sk-cube4"></div>
+    <div class="sk-cube sk-cube5"></div>
+    <div class="sk-cube sk-cube6"></div>
+    <div class="sk-cube sk-cube7"></div>
+    <div class="sk-cube sk-cube8"></div>
+    <div class="sk-cube sk-cube9"></div>
+  </div>
+</ng-template>

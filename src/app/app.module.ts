@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {FormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -12,6 +13,7 @@ import {environment} from '../environments/environment';
 import { AuthService } from './services/auth.service';
 import { AngularFireAuthModule} from 'angularfire2/auth';
 import {  AngularFirestoreModule} from 'angularfire2/firestore';
+import { QueueService } from './services/queue.service';
 
 
 @NgModule({
@@ -24,12 +26,13 @@ import {  AngularFirestoreModule} from 'angularfire2/firestore';
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
+    FormsModule,
     AppRouterModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, QueueService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
