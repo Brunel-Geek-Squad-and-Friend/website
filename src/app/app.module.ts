@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { StreamComponent } from './pages/stream/stream.component';
+import { AppRouterModule } from './router/router.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { StreamComponent } from './pages/stream/stream.component';
   ],
   imports: [
     BrowserModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    AppRouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
