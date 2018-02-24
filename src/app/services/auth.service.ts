@@ -22,4 +22,8 @@ export class AuthService {
       });
   }
 
+  delete() {
+    this.authState.subscribe(user => user.delete());
+  }
+
 }

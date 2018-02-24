@@ -14,6 +14,7 @@ import { AuthService } from './services/auth.service';
 import { AngularFireAuthModule} from 'angularfire2/auth';
 import {  AngularFirestoreModule} from 'angularfire2/firestore';
 import { QueueService } from './services/queue.service';
+import { EndComponent } from './pages/end/end.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { QueueService } from './services/queue.service';
     AppComponent,
     HomeComponent,
     StreamComponent,
-    StartComponent
+    StartComponent,
+    EndComponent
   ],
   imports: [
     BrowserModule,

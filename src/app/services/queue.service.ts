@@ -32,4 +32,9 @@ export class QueueService {
     document.set(data);
   }
 
+  delete(uid: string): void {
+    const document = this.afs.doc('queue/' + uid);
+    document.delete();
+  }
+
 }

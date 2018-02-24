@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Observable} from 'rxjs/Observable';
 import { User } from '@firebase/auth-types';
@@ -36,6 +36,18 @@ export class StartComponent implements OnInit {
     this.retrieveQueue();
   }
 
+  @HostListener('window:beforeunload', [])
+  beforeunloadHandler() {
+    this.delete();
+    setTimeout(() => { return false; }, 300);
+  }
+
+  @HostListener('window:unload', [])
+  unloadHandler() {
+    this.delete();
+    setTimeout(() => { return false; }, 300);
+  }
+
   private retrieveQueue() {
     this.queue$ = this.queueService.get()
       .pipe(
@@ -71,4 +83,10 @@ export class StartComponent implements OnInit {
       });
   }
 
+  delete() {
+    this.authState$
+      .subscribe((authData) => {
+        this.queueService.delete(authData.uid);
+      });
+  }
 }
