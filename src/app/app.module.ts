@@ -9,6 +9,7 @@ import { AppRouterModule } from './router/router.module';
 import { StartComponent } from './pages/start/start.component';
 import {AngularFireModule} from 'angularfire2';
 import {environment} from '../environments/environment';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import {environment} from '../environments/environment';
     AppRouterModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
