@@ -23,6 +23,8 @@ export class StartComponent implements OnInit {
 
   public showJoin = false;
 
+  public showStreamButton = false;
+
   constructor(
     private auth: AuthService,
     private queueService: QueueService,
@@ -53,6 +55,7 @@ export class StartComponent implements OnInit {
   private retrieveQueue() {
     this.queue$ = this.queueService.get()
       .pipe(
+        map(this.orderQueue),
         tap((data) => {
           this.authState$.subscribe((authData) => {
             const authUid: string = authData.uid;
@@ -60,10 +63,14 @@ export class StartComponent implements OnInit {
               this.showJoin = true;
             } else {
               this.showJoin = false;
+              if (data[0].id === authUid) {
+                this.showStreamButton = true;
+              } else {
+                this.showStreamButton = false;
+              }
             }
           });
-        }),
-        map(this.orderQueue)
+        })
       );
   }
 
