@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-5">
   <div class="alert-warning" *ngIf="error">{{error}}</div>
   <p *ngIf="authState$ | async as authState; else authenticating">
     Authenticated anonymously. <br />
