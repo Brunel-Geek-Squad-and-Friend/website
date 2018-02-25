@@ -1,15 +1,12 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-12">
-      <video #video class="video"></video>
+      <div class="embed-responsive embed-responsive-16by9 border border-primary">
+        <video #video></video>
+      </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12">
-      <button md-raised-button class="btn btn-primary" (click)="startRecording()"> Record </button>
-      <button md-raised-button class="btn btn-primary"(click) ="stopRecording()"> Stop</button>
-      <button md-raised-button class="btn btn-primary" (click)="download()"> Download</button>
-    </div>
+    <h1 class="text-warning">You have {{timeRemaining}} Seconds Remain</h1>
   </div>
-
 </div>

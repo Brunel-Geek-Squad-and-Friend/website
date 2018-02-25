@@ -1,5 +1,8 @@
 import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import * as RecordRTC from 'recordrtc';
+import { Socket } from 'ngx-socket-io';
+import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-stream',
@@ -14,45 +17,69 @@ export class StreamComponent implements OnInit {
 
   private recordRTC: any;
 
-  constructor() { }
+  public timeRemaining = 10;
+
+  constructor(
+    private socket: Socket,
+    private auth: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.socket.connect();
+    this.auth.authState
+      .subscribe((authState) => {
+        if (authState) {
+          console.log(authState);
+          this.socket.emit('uid', authState.uid);
+        } else {
+          this.socket.emit('uid', 'undefined');
+        }
+      });
+    this.socket.on('message', (message) => console.log(message));
+    this.socket.on('disconnect', () => this.router.navigate(['']));
+    this.startRecording();
   }
 
   ngAfterViewInit() {
     // set the initial state of the video
     const video: HTMLVideoElement = this.video.nativeElement;
     video.muted = false;
-    video.controls = true;
-    video.autoplay = false;
+    video.controls = false;
+    video.autoplay = true;
   }
 
   toggleControls() {
     const video: HTMLVideoElement = this.video.nativeElement;
-    video.muted = !video.muted;
-    video.controls = !video.controls;
-    video.autoplay = !video.autoplay;
+    // video.muted = !video.muted;
+    // video.controls = !video.controls;
+    // video.autoplay = !video.autoplay;
   }
 
 
   startRecording() {
     const mediaConstraints: MediaStreamConstraints = {
       video: {
-        height: 1280,
-        width: 720
-      }, audio: true
+        height: 720,
+        width: 1280
+      }, audio: false
     };
     navigator.mediaDevices
       .getUserMedia(mediaConstraints)
       .then(this.successCallback.bind(this), this.errorCallback.bind(this));
+    const timer = setInterval(() => {
+      this.timeRemaining = this.timeRemaining - 1;
+      if (this.timeRemaining === 0) {
+        clearInterval(timer);
+        this.stopRecording();
+      }
+    }, 1000);
   }
 
   successCallback(stream: MediaStream) {
     const options = {
       mimeType: 'video/webm;codes=h264', // or video/webm\;codecs=h264 or video/webm\;codecs=vp9
-      audioBitsPerSecond: 0,
-      videoBitsPerSecond: 128000,
-      bitsPerSecond: 128000 // if this line is provided, skip above two
+      bitsPerSecond: 500000 // if this line is provided, skip above two
     };
     this.stream = stream;
     this.recordRTC = RecordRTC(stream, options);
@@ -81,6 +108,7 @@ export class StreamComponent implements OnInit {
     video.src = audioVideoWebMURL;
     this.toggleControls();
     const recordedBlob = recordRTC.getBlob();
+    this.socket.emit('video', recordedBlob);
     recordRTC.getDataURL(function (dataURL) { });
   }
 

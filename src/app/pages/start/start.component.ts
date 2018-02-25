@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import { User } from '@firebase/auth-types';
 import {QueueService} from '../../services/queue.service';
 import {map, tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-start',
@@ -24,7 +25,8 @@ export class StartComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private queueService: QueueService
+    private queueService: QueueService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -88,5 +90,9 @@ export class StartComponent implements OnInit {
       .subscribe((authData) => {
         this.queueService.delete(authData.uid);
       });
+  }
+
+  stream() {
+    this.router.navigate(['stream']);
   }
 }

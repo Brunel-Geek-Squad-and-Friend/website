@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
+import { SocketIoModule } from 'ngx-socket-io';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -32,7 +34,8 @@ import { EndComponent } from './pages/end/end.component';
     AppRouterModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    SocketIoModule.forRoot(environment.socketIo)
   ],
   providers: [AuthService, QueueService],
   bootstrap: [AppComponent]

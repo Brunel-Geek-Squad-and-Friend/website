@@ -12,5 +12,9 @@ export const environment = {
     projectId: 'brunel-and-friend',
     storageBucket: 'brunel-and-friend.appspot.com',
     messagingSenderId: '116336620286'
+  },
+  socketIo: {
+    url: 'localhost:8089',
+    options: {}
   }
 };
