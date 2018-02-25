@@ -65,6 +65,7 @@ export class StartComponent implements OnInit {
               this.showJoin = false;
               if (data[0].id === authUid) {
                 this.showStreamButton = true;
+                this.router.navigate(['stream']);
               } else {
                 this.showStreamButton = false;
               }
